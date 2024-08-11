@@ -9,6 +9,7 @@ const usersRoute = require("./routers/users")
 
 const app = express();
 const PORT = 5000;
+app.use(express.json());
 
 // cors setting
 const whitelist = process.env.CORS_WHITELIST;
@@ -33,6 +34,5 @@ app.use("/api/auth", cors(corsOptions), authRoute);
 app.use("/api/posts", cors(corsOptions), postsRoute);
 app.use("/api/users", cors(corsOptions), usersRoute);
 
-app.use(express.json());
 
 app.listen(PORT, () => console.log(`Server is running on http://localhost:${PORT}`))
