@@ -7,7 +7,7 @@ const lineNotifyClient = require('../utils/lineNoitfy');
 
 const prisma = new PrismaClient();
 const lineNotify = new lineNotifyClient();
-lineNotify.setToken(process.env.Line_Token);
+lineNotify.setToken(process.env.LINE_TOKEN);
 
 // post API
 router.post("/post", isAuthenticated, async (req, res) => {
