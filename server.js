@@ -12,17 +12,10 @@ const PORT = 5000;
 app.use(express.json());
 
 // cors setting
-const whitelist = process.env.CORS_WHITELIST;
-
 const corsOptions = {
-  origin: function (origin, callback) {
-    if (origin === whitelist) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  }
-};
+  origin: process.env.CORS_WHITELIST,
+  optionsSuccessStatus: 200
+}
 
 // renderでの起動用dummy endpoint
 app.get('/dummy', cors(), (req, res) => {

@@ -29,12 +29,15 @@ router.get("/profile/:userId", async (req, res) => {
       where: { userId: parseInt(userId) },
       include: {
         user: {
-          include: {
-            Profile: true
+          select: {
+            id: true,
+            username: true,
+            email: true,
+            Profile: true // プロフィール情報を含める
           }
         }
       }
-    })
+    });
 
     if (!profile) {
       return res.status(404).json({ message: "プロフィールが見つかりませんでした。" })

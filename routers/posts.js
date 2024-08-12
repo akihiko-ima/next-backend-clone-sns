@@ -44,11 +44,15 @@ router.post("/post", isAuthenticated, async (req, res) => {
 router.get("/get_latest_post", async (req, res) => {
   try {
     const latestPosts = await prisma.post.findMany({
-      take: 10, orderBy: { createdAt: "desc" },
+      take: 10,
+      orderBy: { createdAt: "desc" },
       include: {
         author: {
-          include: {
-            Profile: true
+          select: {
+            id: true,
+            username: true,
+            email: true,
+            Profile: true // プロフィール情報はそのまま含める
           }
         }
       }
@@ -73,7 +77,14 @@ router.get("/:userId", async (req, res) => {
         createdAt: "desc"
       },
       include: {
-        author: true
+        author: {
+          select: {
+            id: true,
+            username: true,
+            email: true
+            // パスワードを除外
+          }
+        }
       }
     })
 
