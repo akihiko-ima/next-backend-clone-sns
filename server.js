@@ -25,15 +25,18 @@ const corsOptions = {
   optionsSuccessStatus: 200
 }
 
+// Apply CORS to all routes
+app.use(cors(corsOptions));
+
 // renderでの起動用dummy endpoint
 app.get('/dummy', cors(), (req, res) => {
   res.send('Hello World!');
 });
 
 // router
-app.use("/api/auth", cors(corsOptions), authRouter);
-app.use("/api/posts", cors(corsOptions), postsRouter);
-app.use("/api/users", cors(corsOptions), usersRouter);
+app.use("/api/auth", authRouter);
+app.use("/api/posts", postsRouter);
+app.use("/api/users", usersRouter);
 
 
 app.listen(PORT, () => console.log(`Server is running on http://localhost:${PORT}`))
