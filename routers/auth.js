@@ -1,3 +1,4 @@
+const router = require("express").Router()
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
@@ -5,7 +6,6 @@ require("dotenv").config();
 const { PrismaClient } = require("@prisma/client");
 const generateIdenticon = require("../utils/generateIdenticon");
 
-const router = require("express").Router()
 const prisma = new PrismaClient();
 
 // user register API
@@ -43,13 +43,13 @@ router.post("/login", async (req, res) => {
   const user = await prisma.user.findUnique({ where: { email } })
 
   if (!user) {
-    return res.status(401).json({ error: "メールアドレス or パスワードが間違っています。" })
+    return res.status(404).json({ message: "User not found" });
   }
 
   const isPasswordValid = await bcrypt.compare(password, user.password);
 
   if (!isPasswordValid) {
-    return res.status(401).json({ error: "パスワードが間違っています。" })
+    return res.status(401).json({ message: "Invalid password" });
   }
 
   const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET_KEY, {

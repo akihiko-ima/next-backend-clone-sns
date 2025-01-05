@@ -14,7 +14,7 @@ router.post("/post", isAuthenticated, async (req, res) => {
   const { content } = req.body;
 
   if (!content) {
-    return res.status(400).json({ message: "投稿内容がありません" })
+    return res.status(400).json({ message: "Content is required" });
   }
   try {
     const newPost = await prisma.post.create({
@@ -36,7 +36,7 @@ router.post("/post", isAuthenticated, async (req, res) => {
     return res.status(201).json(newPost)
   } catch (error) {
     console.error(error)
-    res.status(500).json({ message: "server error occured!" })
+    return res.status(500).json({ message: "Internal server error" });
   }
 })
 
@@ -57,10 +57,10 @@ router.get("/get_latest_post", async (req, res) => {
         }
       }
     })
-    return res.json(latestPosts)
+    return res.status(200).json(latestPosts)
   } catch (error) {
     console.error(error)
-    return res.status(500).json({ message: "server error occured!" })
+    return res.status(500).json({ message: "Internal server error" });
   }
 })
 
@@ -91,7 +91,7 @@ router.get("/:userId", async (req, res) => {
     return res.status(200).json(userPosts)
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: "server error occured!" })
+    return res.status(500).json({ message: "Internal server error" });
   }
 })
 
