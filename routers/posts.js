@@ -51,7 +51,6 @@ router.get("/get_latest_post", async (req, res) => {
           select: {
             id: true,
             username: true,
-            email: true,
             Profile: true // プロフィール情報はそのまま含める
           }
         }
@@ -81,7 +80,6 @@ router.get("/:userId", async (req, res) => {
           select: {
             id: true,
             username: true,
-            email: true
             // パスワードを除外
           }
         }

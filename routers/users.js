@@ -32,7 +32,6 @@ router.get("/profile/:userId", async (req, res) => {
           select: {
             id: true,
             username: true,
-            email: true,
             Profile: true // プロフィール情報を含める
           }
         }
